@@ -9,7 +9,6 @@ function myMiddleware(request, response, next){
     next();
 }
 
-
 const usersController = new UsersController();
 
 usersRoutes.post("/", usersController.create);

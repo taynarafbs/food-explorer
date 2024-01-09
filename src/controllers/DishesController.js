@@ -22,7 +22,7 @@ class DishesController {
 
         await knex("ingredients").insert(ingredientsInsert);
 
-        response.json();
+        return response.json();
     };
 
     async show(request, response) {
@@ -55,7 +55,16 @@ class DishesController {
             const filterIngredients = ingredients.split(',').map(ingredients => ingredients.trim());
 
             dishes = await knex("ingredients")
-                .whereIn("name", filterIngredients);
+                .select([
+                    "dishes.id",
+                    "dishes.title",
+                    "dishes.user_id",
+                ])
+                .where("dishes.user_id", user_id)
+                .whereLike("dishes.title", `%${title}%`)
+                .whereIn("name", filterIngredients)
+                .innerJoin("dishes", "dishes.id", "ingredients.dish_id")
+                .orderBy("dishes.title")
 
         } else {
             dishes = await knex("dishes")
@@ -64,6 +73,7 @@ class DishesController {
                 .orderBy("title");
 
         };
+
 
         return response.json(dishes);
     };

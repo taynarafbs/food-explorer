@@ -142,13 +142,16 @@ class DishesController {
                 .innerJoin("dishes", "dishes.id", "ingredients.dish_id")
                 .orderBy("dishes.title")
 
-        } else {
+        } else if (title) {
             dishes = await knex("dishes")
                 .where({ user_id })
                 .whereLike("title", `%${title}%`)
                 .orderBy("title");
-
-        };
+        } else {
+            dishes = await knex("dishes")
+                .where({ user_id })
+                .orderBy("title");
+        }
 
 
         return response.json(dishes);

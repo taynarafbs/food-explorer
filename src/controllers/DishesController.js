@@ -4,6 +4,7 @@ const DiskStorage = require("../providers/DiskStorage");
 
 class DishesController {
     async create(request, response) {
+        try {
         const { title, description, price, type, ingredients } = request.body;
         const user_id = request.user.id;
 
@@ -17,8 +18,8 @@ class DishesController {
             throw new AppError("Usuário não autorizado", 401);
         }
 
-        // const filename = img && await diskStorage.saveFile(img.filename);
 
+        //const filename = await diskStorage.saveFile(img.filename)
 
         const [dish_id] = await knex("dishes").insert({
             title,
@@ -26,7 +27,7 @@ class DishesController {
             price,
             type,
             user_id,
-            // img: filename
+            //img: filename
         });
 
         const ingredientsInsert = ingredients.map(name => {
@@ -39,13 +40,16 @@ class DishesController {
         await knex("ingredients").insert(ingredientsInsert);
 
         return response.json();
+        } catch (e) {
+            throw new AppError(`Não foi possivel realizar o cadastro do prato. ${e}`)
+        }
     };
 
     async update(request, response) {
         const { title, description, price, type, ingredients } = request.body;
         const user_id = request.user.id;
-
         const { id } = request.params;
+
         let img = null;
         let filename = null;
 
@@ -53,7 +57,7 @@ class DishesController {
 
         const user = await knex("users").where({ id: user_id }).first();
         if (!user) {
-            throw new AppError("Somente usuários administradores", 401);
+            throw new AppError("Somente usuário autorizado", 401);
         }
 
         const dish = await knex("dishes").where({ id }).first();
@@ -115,6 +119,7 @@ class DishesController {
     async delete(request, response) {
         const { id } = request.params;
 
+
         await knex("dishes").where({ id }).delete();
 
         return response.json();
@@ -136,7 +141,7 @@ class DishesController {
                     "dishes.title",
                     "dishes.user_id",
                 ])
-                .where("dishes.user_id", user_id)
+                //.where("dishes.user_id", user_id)
                 .whereLike("dishes.title", `%${title}%`)
                 .whereIn("name", filterIngredients)
                 .innerJoin("dishes", "dishes.id", "ingredients.dish_id")
@@ -144,12 +149,12 @@ class DishesController {
 
         } else if (title) {
             dishes = await knex("dishes")
-                .where({ user_id })
+                // .where({ user_id })
                 .whereLike("title", `%${title}%`)
                 .orderBy("title");
         } else {
             dishes = await knex("dishes")
-                .where({ user_id })
+                // .where({ user_id })
                 .orderBy("title");
         }
 

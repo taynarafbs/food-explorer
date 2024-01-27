@@ -23,7 +23,7 @@ class UsersController {
     }
 
     async update(request, response) {
-        const { name, email, password, old_password } = request.body;
+        const { name, email, password, old_password, is_admin } = request.body;
         const user_id = request.user.id;
 
         const database = await sqliteConnection();
@@ -41,6 +41,7 @@ class UsersController {
 
         user.name = name ?? user.name;
         user.email = email ?? user.email;
+        user.is_admin = is_admin ?? user.is_admin;
 
         if (password && !old_password) {
             throw new AppError("Você precisa informar a senha antiga para definir a nova senha");
@@ -61,9 +62,10 @@ class UsersController {
             name = ?,
             email = ?,
             password = ?,
+            is_admin = ?,
             updated_at = DATETIME('now')
             WHERE id = ?`,
-            [user.name, user.email, user.password, user_id]
+            [user.name, user.email, user.password, user.is_admin, user_id]
         );
 
         return response.json();

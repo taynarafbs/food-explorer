@@ -5,21 +5,33 @@ const DiskStorage = require("../providers/DiskStorage");
 class DishesController {
     async create(request, response) {
         try {
+        let img = null;
         const { title, description, price, type, ingredients } = request.body;
         const user_id = request.user.id;
 
         const diskStorage = new DiskStorage;
 
-        if (!title || !price || !description || !type || !ingredients) {
+        if (!title || !price || !description || !type || !ingredients ) {
             throw new AppError('Não foi possivel realizar o cadastro do prato.')
         }
         const user = await knex("users").where({ id: user_id }).first();
         if (!user) {
             throw new AppError("Usuário não autorizado", 401);
+        } 
+
+        filename = dish.img || null;
+
+        if (request.file) {
+            if (filename) {
+                await diskStorage.deleteFile(filename)
+            }
+
+            img = request.file.filename
+            console.log(img)
+            if (img) {
+                filename = await diskStorage.saveFile(img);
+            }
         }
-
-
-        //const filename = await diskStorage.saveFile(img.filename)
 
         const [dish_id] = await knex("dishes").insert({
             title,
@@ -27,7 +39,7 @@ class DishesController {
             price,
             type,
             user_id,
-            //img: filename
+            img: filename
         });
 
         const ingredientsInsert = ingredients.map(name => {

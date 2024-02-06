@@ -5,6 +5,7 @@ const createUsers = `
     email VARCHAR,
     password VARCHAR,
     avatar VARCHAR NULL,
+    is_admin BOOLEAN,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )

@@ -7,7 +7,7 @@
 </p>
 
 
-## Funcionalidades
+**Funcionalidades:** 
 
 O Food Explorer possui duas personas: o admin e o usuário.
 
@@ -52,10 +52,10 @@ Deploy back-end:
 
 8. Após a instalação das dependências, execute o comando `npm run dev` ou `npm run start` para iniciar o servidor.
 
-# Observação:
+**Observação:** 
 O render da aplicação pode demorar um pouco para carregar devido à quantidade de imagens e recursos utilizados.
 
-# Projeto
+**Projeto:** 
 - Desafio final do curso Explorer da Rocketseat
 
 

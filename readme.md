@@ -11,11 +11,10 @@
 
 O Food Explorer possui duas personas: o admin e o usuário.
 
-- Admin:
-O admin é responsável pelo restaurante e tem permissão para criar, visualizar, editar e apagar pratos a qualquer momento. Cada prato deve conter uma imagem, um nome, uma categoria, uma breve descrição, os ingredientes e o preço. Ao adicionar um prato, o admin receberá uma mensagem de sucesso e será redirecionado para a página principal.
+## Deploy
+Deploy:
 
-- Usuário:
-O usuário pode visualizar todos os pratos cadastrados. Ao clicar em um prato, será redirecionado para uma nova tela com informações mais detalhadas sobre ele.
+Deploy back-end:
 
 ## 🚀 Tecnologias
 
@@ -29,18 +28,13 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Dotenv
 - PM2
 
-## Deploy
-Deploy:
-
-Deploy back-end:
-
 ## Como utilizar
 
-1. Certifique-se de ter o Node.js instalado em sua máquina e o npm instalado.
+1. Verifique se tem instalado o Node.js em sua máquina e o npm instalado.
 
-2. Baixe o arquivo .zip do projeto em sua máquina local ou clone o repositório público do projeto a partir do link do GitHub.
+2. Clone o repositório público do projeto a partir do link do GitHub ou baixe o arquivo .zip do projeto em sua máquina.
 
-3. Descompacte o arquivo baixado, se necessário, e navegue até a pasta que contém o aplicação back-end dentro da raiz do projeto clonado.
+3. Navegue até a pasta que contém a aplicação back-end dentro da raiz do projeto clonado.
 
 4. No terminal, navegue até a pasta raiz do projeto.
 

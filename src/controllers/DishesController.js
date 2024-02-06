@@ -5,13 +5,13 @@ const DiskStorage = require("../providers/DiskStorage");
 class DishesController {
     async create(request, response) {
         try {
-        let img = null;
         const { title, description, price, type, ingredients } = request.body;
         const user_id = request.user.id;
+        const img = request.file;
 
         const diskStorage = new DiskStorage;
 
-        if (!title || !price || !description || !type || !ingredients ) {
+        if (!title || !price || !description || !img.filename || !type || !ingredients ) {
             throw new AppError('Não foi possivel realizar o cadastro do prato.')
         }
         const user = await knex("users").where({ id: user_id }).first();
@@ -19,7 +19,7 @@ class DishesController {
             throw new AppError("Usuário não autorizado", 401);
         } 
 
-        filename = dish.img || null;
+        const filename = await diskStorage.saveFile(img.filename)
 
         if (request.file) {
             if (filename) {

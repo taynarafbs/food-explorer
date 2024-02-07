@@ -12,9 +12,8 @@
 O Food Explorer possui duas personas: o admin e o usuário.
 
 ## Deploy
-Deploy:
 
-Deploy back-end:
+Deploy back-end: https://food-explorer-backend-bv2o.onrender.com
 
 ## 🚀 Tecnologias
 

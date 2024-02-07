@@ -7,11 +7,11 @@ class DishesController {
         try {
         const { title, description, price, type, ingredients } = request.body;
         const user_id = request.user.id;
-        const img = request.file;
+        const img = request.file ?? null;
 
         const diskStorage = new DiskStorage;
 
-        if (!title || !price || !description || !img.filename || !type || !ingredients ) {
+        if (!title || !price || !description || !type || !ingredients ) {
             throw new AppError('Não foi possivel realizar o cadastro do prato.')
         }
         const user = await knex("users").where({ id: user_id }).first();
@@ -19,17 +19,15 @@ class DishesController {
             throw new AppError("Usuário não autorizado", 401);
         } 
 
-        const filename = await diskStorage.saveFile(img.filename)
+        const filename = img ? await diskStorage.saveFile(img.filename) : null
 
         if (request.file) {
             if (filename) {
                 await diskStorage.deleteFile(filename)
             }
 
-            img = request.file.filename
-            console.log(img)
-            if (img) {
-                filename = await diskStorage.saveFile(img);
+            if (request.file.filename) {
+                filename = await diskStorage.saveFile(request.file.filename);
             }
         }
 

@@ -6,14 +6,9 @@
   Aplicação desenvolvida para ser usada como um cardápio digital para um restaurante.
 </p>
 
-
 **Funcionalidades:** 
 
 O Food Explorer possui duas personas: o admin e o usuário.
-
-## Deploy
-
-Deploy back-end: https://food-explorer-backend-bv2o.onrender.com
 
 ## 🚀 Tecnologias
 
@@ -26,6 +21,10 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - JWT
 - Dotenv
 - PM2
+
+## Deploy
+
+Deploy back-end: https://food-explorer-backend-bv2o.onrender.com
 
 ## Como utilizar
 
